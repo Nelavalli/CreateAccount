@@ -1,8 +1,11 @@
 package com.dbs.capi;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.spring.boot.FatJarRouter;
+import org.springframework.stereotype.Component;
 
-public class MyRoute extends RouteBuilder {
+@Component
+public class MyRoute extends FatJarRouter  {
 
 	@Override
     public void configure() throws Exception {
