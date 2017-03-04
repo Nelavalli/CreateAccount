@@ -22,6 +22,7 @@ apply from: 'buildreports.gradle'
 jar {
     baseName = 'CreateAccount'
     version =  '1.0.0'
+    
 }
 archivesBaseName = 'CreateAccount'
 
@@ -36,10 +37,15 @@ springBoot {
     executable = true
 }
 
+bootRepackage {
+    mainClass = 'com.dbs.capi.MyRoute'
+}
+
 dependencies {
+	compile 'org.apache.camel:camel-spring-boot-starter:2.18.0'
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'org.codehaus.groovy:groovy-all:2.4.8'
-    compile 'org.apache.camel:camel-spring-boot:2.17.0'
+    compile 'org.apache.camel:camel-spring-boot:2.18.0'
     compile 'org.apache.camel:camel-groovy:2.18.2'
     
     compile('org.springframework.boot:spring-boot-starter-web')
