@@ -1,13 +1,46 @@
 buildscript {
     ext {
-		springBootVersion = '1.5.1.RELEASE'
+		springBootVersion = '1.5.2.RELEASE'
 	}
 	repositories {
         mavenCentral()
+        maven { url 'http://repo.spring.io/plugins-release' }
     }
+    
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
+        
+}
+
+configurations {
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
+
+dependencies {
+	compile 'org.codehaus.groovy:groovy-all:2.4.8'
+    
+    compile 'org.springframework.boot:spring-boot-starter'
+    
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-undertow")
+	compile('org.springframework.boot:spring-boot-starter-web-services')
+	
+	compile('org.springframework.boot:spring-boot-devtools')
+
+    compile 'org.apache.camel:camel-spring-boot-starter:2.18.2'
+    compile 'org.apache.camel:camel-spring-boot:2.18.2'
+    compile 'org.apache.camel:camel-groovy:2.18.2'
+    compile 'org.apache.camel:camel-undertow:2.18.2'
+    
+    
+    compile('com.zaxxer:HikariCP:2.5.1')
+	compile('org.apache.httpcomponents:httpclient:4.5.2')
+	compile('org.json:json:20160810')
+	
+	//testCompile('org.springframework.boot:spring-boot-starter-test')
+	//testCompile('org.hsqldb:hsqldb:2.3.4')
+	//testCompile('org.mockito:mockito-core:1.10.19')
 }
 
 apply plugin: 'groovy'
@@ -16,6 +49,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'application'
 apply plugin: 'maven'
+
 
 apply from: 'buildreports.gradle'
 
@@ -38,24 +72,6 @@ springBoot {
 }
 
 bootRepackage {
-    mainClass = 'com.dbs.capi.MyRoute'
+    mainClass = 'com.dbs.capi.CreateAccountController'
 }
 
-dependencies {
-	compile 'org.apache.camel:camel-spring-boot-starter:2.18.0'
-    compile 'org.springframework.boot:spring-boot-starter'
-    compile 'org.codehaus.groovy:groovy-all:2.4.8'
-    compile 'org.apache.camel:camel-spring-boot:2.18.0'
-    compile 'org.apache.camel:camel-groovy:2.18.2'
-    
-    compile('org.springframework.boot:spring-boot-starter-web')
-    //compile('org.springframework.boot:spring-boot-starter-jdbc')
-	compile('org.springframework.boot:spring-boot-starter-web-services')
-	compile('com.zaxxer:HikariCP:2.5.1')
-	compile('org.apache.httpcomponents:httpclient:4.5.2')
-	compile('org.json:json:20160810')
-	
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-	//testCompile('org.hsqldb:hsqldb:2.3.4')
-	testCompile('org.mockito:mockito-core:1.10.19')
-}

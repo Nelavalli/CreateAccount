@@ -5,11 +5,15 @@ import org.apache.camel.spring.boot.FatJarRouter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MyRoute extends FatJarRouter  {
+public class CreateAccountController extends FatJarRouter  {
 
 	@Override
     public void configure() throws Exception {
-        from("timer:foo")
-          .to("log:bar");
+        
+        from("direct:getPersons")
+        	.transform()
+        		.simple("Hello World!");
+        	
+        
     }
 }
