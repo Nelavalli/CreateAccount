@@ -1,9 +1,12 @@
 buildscript {
     ext {
 		springBootVersion = '1.5.2.RELEASE'
+		camelVersion = '2.18.2' 
+        undertowVersion = '1.2.11.Final'
 	}
 	repositories {
         mavenCentral()
+        jcenter()
         maven { url 'http://repo.spring.io/plugins-release' }
     }
     
@@ -13,6 +16,20 @@ buildscript {
         
 }
 
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'http://repo.spring.io/plugins-release' }
+}
+
+configurations.all { 
+    resolutionStrategy.eachDependency { DependencyResolveDetails details -> 
+        if (details.requested.group == 'io.undertow') { 
+            details.useVersion undertowVersion 
+        } 
+    } 
+} 
+    
 configurations {
     compile.exclude module: "spring-boot-starter-tomcat"
 }
@@ -22,16 +39,23 @@ dependencies {
     
     compile 'org.springframework.boot:spring-boot-starter'
     
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-undertow")
-	compile('org.springframework.boot:spring-boot-starter-web-services')
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-undertow'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+	compile 'org.springframework.boot:spring-boot-starter-web-services'
 	
-	compile('org.springframework.boot:spring-boot-devtools')
+	compile 'org.springframework.boot:spring-boot-devtools'
 
-    compile 'org.apache.camel:camel-spring-boot-starter:2.18.2'
-    compile 'org.apache.camel:camel-spring-boot:2.18.2'
-    compile 'org.apache.camel:camel-groovy:2.18.2'
-    compile 'org.apache.camel:camel-undertow:2.18.2'
+	
+    compile "org.apache.camel:camel-core:${camelVersion}"
+    compile "org.apache.camel:camel-restlet:${camelVersion}"
+    compile "org.restlet.jee:org.restlet.ext.spring:2.3.8"
+    compile "org.apache.camel:camel-groovy:$camelVersion"
+    compile "org.apache.camel:camel-undertow:$camelVersion"
+    compile "org.apache.camel:camel-spring-boot:$camelVersion"
+    compile "org.apache.camel:camel-jackson:$camelVersion" 
+    compile "org.apache.camel:camel-swagger-java:$camelVersion"
+    compile "org.apache.camel:camel-spring-boot-starter:$camelVersion"
     
     
     compile('com.zaxxer:HikariCP:2.5.1')
@@ -59,10 +83,6 @@ jar {
     
 }
 archivesBaseName = 'CreateAccount'
-
-repositories {
-    mavenCentral()
-}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

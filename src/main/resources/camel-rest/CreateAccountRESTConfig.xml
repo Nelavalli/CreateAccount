@@ -4,7 +4,7 @@
          <to uri="direct:postPersons"/>
       </post>
       -->
-      <get uri="undertow:http://0.0.0.0:9091/persons?matchOnUriPrefix=true">
+      <get uri="/persons?servletName=dispatcherServlet">
          <to uri="direct:getPersons"/>
       </get>
       <!--  
