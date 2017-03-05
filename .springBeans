@@ -9,6 +9,7 @@
 	<configs>
 	</configs>
 	<autoconfigs>
+		<config>java:com.dbs.capi.CreateAccountController</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
